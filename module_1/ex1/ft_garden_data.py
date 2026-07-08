@@ -4,6 +4,7 @@ class Plant:
     def show(self):
         print(f"{self.name}: {self.height}cm, {self.age} days old")
 
+
 def main():
     rose = Plant()
     rose.name = "Rose"
@@ -24,6 +25,7 @@ def main():
     rose.show()
     sunflower.show()
     cactus.show()
+
 
 if __name__ == "__main__":
     main()

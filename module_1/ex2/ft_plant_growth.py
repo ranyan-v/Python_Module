@@ -10,27 +10,29 @@ class Plant:
     def show(self):
         print(f"{self.name}: {round(self.height, 1)}cm, {self.age} days old")
 
-    def height_grow(self):
+    def grow(self):
         self.height += self.growth_rate
 
-    def age_grow(self):
+    def age(self):
         self.age += 1
 
+
 def main():
-    rose = Plant("Rose", 25, 30, 0.8)
+    rose = Plant("Rose", 25.0, 30, 0.8)
     ini_height = rose.height
 
     print("=== Garden Plant Growth ===")
     rose.show()
 
     for day in range(1, 8):
-        rose.height_grow()
-        rose.age_grow()
+        rose.grow()
+        rose.age()
 
         print(f"=== Day {day} ===")
         rose.show()
 
     print(f"Growth this week: {round(rose.height - ini_height, 1)}cm")
+
 
 if __name__ == "__main__":
     main()

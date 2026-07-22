@@ -73,7 +73,7 @@ class Tree(Plant):
         self._trunk_diameter = trunk_diameter
 
     def produce_shade(self):
-        print(f"Tree {self._name} now produces a shade of ")
+        print(f"Tree {self._name} now produces a shade of ", end = "")
         print(f"{self._height}cm long and {self._trunk_diameter}cm wide.")
 
     def show(self):

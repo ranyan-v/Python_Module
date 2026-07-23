@@ -1,10 +1,11 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 
 class Plant:
-    def __init__(self, name, height, age):
+    # ---------- Constructor ----------
+    def __init__(self, name: str, height: float, age: int) -> None:
         self._name = name
 
-# Validate initial value
+        # Validate initial value
         if height < 0:
             self._height = 0.0
         else:
@@ -15,18 +16,18 @@ class Plant:
         else:
             self._age = age
 
-# Getter
-    def get_name(self):
+    # ---------- Getters ----------
+    def get_name(self) -> str:
         return self._name
 
-    def get_height(self):
+    def get_height(self) -> float:
         return self._height
 
-    def get_age(self):
+    def get_age(self) -> int:
         return self._age
 
-# Setter
-    def set_height(self, height):
+    # ---------- Setters ----------
+    def set_height(self, height: float) -> None:
         if height < 0:
             print(f"{self._name}: Error, height can't be negative")
             print("Height update rejected")
@@ -34,7 +35,7 @@ class Plant:
         self._height = height
         print(f"Height updated: {self._height}cm")
 
-    def set_age(self, age):
+    def set_age(self, age: int) -> None:
         if age < 0:
             print(f"{self._name}: Error, age can't be negative")
             print("Age update rejected")
@@ -42,11 +43,12 @@ class Plant:
         self._age = age
         print(f"Age updated: {self._age} days")
 
-    def show(self):
+    # ---------- Behaviors ----------
+    def show(self) -> None:
         print(f"{self._name}: {self._height:.1f}cm, {self._age} days old")
 
 
-def main():
+def main() -> None:
     rose = Plant("Rose", 15.0, 10)
 
     print("=== Garden Security System ===")

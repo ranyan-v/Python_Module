@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 class Plant:
-    def show(self):
+    def show(self) -> None:
         print(f"{self.name}: {self.height}cm, {self.age} days old")
 
 
-def main():
+def main() -> None:
     rose = Plant()
     rose.name = "Rose"
     rose.height = 25

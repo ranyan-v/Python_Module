@@ -135,7 +135,7 @@ class Tree(Plant):
 
     def show_statistics(self) -> None:
         super().show_statistics()
-        print(f"{self._shade_calls} shade")
+        print(f" {self._shade_calls} shade")
 
 
 class Seed(Flower):

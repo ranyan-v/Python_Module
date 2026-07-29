@@ -19,7 +19,7 @@ class Plant:
     def grow(self) -> None:
         self.height += self.growth_rate
 
-    def age(self) -> None:
+    def aged(self) -> None:
         self.age += 1
 
 
@@ -32,7 +32,7 @@ def main() -> None:
 
     for day in range(1, 8):
         rose.grow()
-        rose.age()
+        rose.aged()
 
         print(f"=== Day {day} ===")
         rose.show()

@@ -11,7 +11,7 @@ def main() -> None:
         file_name = sys.argv[1]
         try:
             print(f"Accessing file '{file_name}'")
-            file: typing.IO = open(file_name, "r")
+            file: typing.IO[str] = open(file_name, "r")
             content = file.read()
             print("---\n")
             print(content)
@@ -53,7 +53,7 @@ def main() -> None:
     else:
         try:
             print(f"Saving data to '{new_file_name}'")
-            new_file: typing.IO = open(new_file_name, "w")
+            new_file: typing.IO[str] = open(new_file_name, "w")
             new_file.write(trans)
             new_file.close()
             print(f"Data saved in file '{new_file_name}'.")

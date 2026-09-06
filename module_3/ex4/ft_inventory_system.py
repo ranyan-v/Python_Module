@@ -32,7 +32,7 @@ def parse(input: str) -> tuple[str, str] | None:
         return None
 
 
-def validate(input: tuple) -> tuple[str, int] | None:
+def validate(input: tuple[str, str]) -> tuple[str, int] | None:
     item = input[0]
     value = input[1]
     if item == "" or value == "":
@@ -48,14 +48,13 @@ def validate(input: tuple) -> tuple[str, int] | None:
     return (item, int_value)
 
 
-def build_inventory() -> dict:
+def build_inventory() -> dict[str, int]:
     inventory: dict[str, int] = {}
     i = 1
     while i < len(sys.argv):
         temp = parse(sys.argv[i])
-        if temp is None:
-            pass
-        else:
+        validated = None
+        if temp is not None:
             validated = (validate(temp))
 
         if validated is None:
@@ -72,7 +71,7 @@ def build_inventory() -> dict:
 
 
 # Analyze inventory
-def analysis(inventory: dict) -> None:
+def analysis(inventory: dict[str, int]) -> None:
     if not inventory:
         return
 
@@ -119,7 +118,7 @@ def analysis(inventory: dict) -> None:
 
 
 # Add new item
-def add_item(inventory: dict) -> None:
+def add_item(inventory: dict[str, int]) -> None:
     inventory.update({
         "magic_item": 1
     })

@@ -10,7 +10,7 @@ def main() -> None:
         file_name = sys.argv[1]
         try:
             print(f"Accessing file '{file_name}'")
-            file: typing.IO = open(file_name, "r")
+            file: typing.IO[str] = open(file_name, "r")
             content = file.read()
             print("---\n")
             print(content)

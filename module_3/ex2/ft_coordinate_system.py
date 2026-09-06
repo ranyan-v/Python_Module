@@ -2,7 +2,7 @@
 import math
 
 
-def parse(input_data: str) -> list | None:
+def parse(input_data: str) -> list[str] | None:
     coordinates_str = []
     current = ""
     location = 0
@@ -20,7 +20,7 @@ def parse(input_data: str) -> list | None:
         return (coordinates_str)
 
 
-def validate(input_data: str) -> tuple | None:
+def validate(input_data: str) -> tuple[float, float, float] | None:
     coordinates_str = parse(input_data)
     if coordinates_str is None:
         return None
@@ -34,10 +34,14 @@ def validate(input_data: str) -> tuple | None:
         except ValueError as error:
             print(f"Error on parameter '{coordinates_str[i]}':{error}")
             return None
-    return tuple(coordinates_float)
+    return (
+        coordinates_float[0],
+        coordinates_float[1],
+        coordinates_float[2]
+    )
 
 
-def get_player_pos(position: str) -> tuple:
+def get_player_pos(position: str) -> tuple[float, float, float]:
     print(f"Get a {position} set of coordinates")
     result = None
     while result is None:
@@ -47,7 +51,10 @@ def get_player_pos(position: str) -> tuple:
     return result
 
 
-def distance(position_1: tuple, position_2: tuple) -> float:
+def distance(
+        position_1: tuple[float, float, float],
+        position_2: tuple[float, float, float]
+) -> float:
     x1 = position_1[0]
     y1 = position_1[1]
     z1 = position_1[2]
@@ -72,7 +79,7 @@ def main() -> None:
         f"Y={position_1[1]}, "
         f"Z={position_1[2]}"
     )
-    print(f"Distance to center: {distance((0,0,0), position_1)}")
+    print(f"Distance to center: {distance((0, 0, 0), position_1)}")
     print()
     position_2 = get_player_pos("second")
     print(

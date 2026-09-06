@@ -3,7 +3,7 @@
 import random
 
 
-def gen_player_achievements(achievement_pool: list) -> set:
+def gen_player_achievements(achievement_pool: list[str]) -> set[str]:
     achievements: set[str] = set()
     achievement_count = random.randint(5, 10)
 

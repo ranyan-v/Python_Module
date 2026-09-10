@@ -5,9 +5,6 @@ import typing
 import abc
 
 
-
-
-
 class DataProcessor(abc.ABC):
 
     def __init__(self) -> None:
@@ -25,9 +22,10 @@ class DataProcessor(abc.ABC):
 
     
     def output(self) -> tuple[int, str]:
+
         
-        storage.append()
-        print(f"Processing data: {data}")
+        return self.storage.pop(0)
+
 
 
 class NumericProcessor(DataProcessor):
@@ -65,6 +63,7 @@ class NumericProcessor(DataProcessor):
                 self.rank += 1
         else:
             raise ValueError("Got exception: Improper numeric data")
+
 
 class TextProcessor(DataProcessor):
 
@@ -104,6 +103,8 @@ class LogProcessor(DataProcessor):
                 and all(isinstance(element, str) for element in data.values())
             ):
                 return True
+            else:
+                return False
         # check list[dict[str, str]]
         elif isinstance(data, list):
             if all(
@@ -116,6 +117,7 @@ class LogProcessor(DataProcessor):
                 return False
         else:
             return False
+
 
     def ingest(self, data: dict[str, str] | list[dict[str, str]]) -> None:
         if self.validate(data) and isinstance(data, dict):
@@ -134,18 +136,26 @@ class LogProcessor(DataProcessor):
 def main() -> None:
     print("=== Code Nexus - Data Processor ===\n")
 
+    print("Testing Numeric Processor...")
+    numeric = NumericProcessor()
     print(
-        f"Trying to validate input '42': {NumericProcessor.validate(42)}"
+        f"Trying to validate input '42': {numeric.validate(42)}"
     )
     print(
-        f"Trying to validate input 'Hello': {NumericProcessor.validate("Hello")}"
+        f"Trying to validate input 'Hello': {numeric.validate("Hello")}"
     )
-    print(
-        f"Test invalid ingestion of string 'foo' without prior validation: "
-        f"{NumericProcessor.ingest("foo")}"
-    )
-
-    f"Extracting  values..."
+    print(f"Test invalid ingestion of string 'foo' without prior validation: ")
+    try:
+        print(f"{numeric.ingest("foo")}")
+    except ValueError as error:
+        print(error)
+    print(f"Processing data: {numeric.ingest([1, 2, 3, 4, 5])}")
+    i = 0
+    print("Extracting 3 values...")
+    for i in range 3:
+        print(f"Numeric value {i}: {numeric.output()}")
+        i += 1
+    
 
 
 if "__name__" == "__main__":

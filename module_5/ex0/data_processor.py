@@ -142,10 +142,10 @@ def main() -> None:
         numeric.ingest("foo")
     except ValueError as error:
         print(error)
-    data = [1, 2, 3, 4, 5]
-    numeric.validate(data)
-    numeric.ingest(data)
-    print(f"Processing data: {data}")
+    data_1: list[int | float] = [1, 2, 3, 4, 5]
+    numeric.validate(data_1)
+    numeric.ingest(data_1)
+    print(f"Processing data: {data_1}")
     print("Extracting 3 values...")
     for i in range(3):
         print(f"Numeric value {i}: {numeric.output()[1]}")
@@ -153,10 +153,10 @@ def main() -> None:
     print("\nTesting Text Processor...")
     text = TextProcessor()
     print(f"Trying to validate input '42': {text.validate(42)}")
-    data = ['Hello', 'Nexus', 'World']
-    text.validate(data)
-    text.ingest(data)
-    print(f"Processing data: {data}")
+    data_2: list[str] = ['Hello', 'Nexus', 'World']
+    text.validate(data_2)
+    text.ingest(data_2)
+    print(f"Processing data: {data_2}")
     print("Extracting 1 values...")
     for i in range(1):
         print(f"Text value {i}: {text.output()[1]}")
@@ -164,13 +164,13 @@ def main() -> None:
     print("\nTesting Log Processor...")
     log = LogProcessor()
     print(f"Trying to validate input 'Hello': {log.validate('Hello')}")
-    data = [
+    data_3: list[dict[str, str]] = [
         {'log_level': 'NOTICE', 'log_message': 'Connection to server'}, 
         {'log_level': 'ERROR', 'log_message': 'Unauthorized access!!'}
     ]
-    log.validate(data)
-    log.ingest(data)
-    print(f"Processing data: {data}")
+    log.validate(data_3)
+    log.ingest(data_3)
+    print(f"Processing data: {data_3}")
     print("Extracting 2 values...")
     for i in range(2):
         print(f"Log value {i}: {log.output()[1]}")

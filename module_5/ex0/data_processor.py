@@ -23,7 +23,6 @@ class DataProcessor(abc.ABC):
         return self.storage.pop(0)
 
 
-
 class NumericProcessor(DataProcessor):
 
     def validate(self, data: typing.Any) -> bool:
@@ -35,13 +34,13 @@ class NumericProcessor(DataProcessor):
             return True
         # check list[int | float]
         elif isinstance(data, list):
-            if all(isinstance(element, int) or isinstance(element, float) for element in data):
+            if all(isinstance(element, int) or isinstance(element, float)
+                    for element in data):
                 return True
             else:
                 return False
         else:
             return False
-
 
     def ingest(self, data: int | float | list[int | float]) -> None:
         if self.validate(data) and isinstance(data, int):
@@ -73,7 +72,6 @@ class TextProcessor(DataProcessor):
                 return False
         else:
             return False
-
 
     def ingest(self, data: str | list[str]) -> None:
         if self.validate(data) and isinstance(data, str):
@@ -115,7 +113,6 @@ class LogProcessor(DataProcessor):
         else:
             return False
 
-
     def ingest(self, data: dict[str, str] | list[dict[str, str]]) -> None:
         if self.validate(data) and isinstance(data, dict):
             item = (self.rank, ": ".join(data.values()))
@@ -137,7 +134,7 @@ def main() -> None:
     numeric = NumericProcessor()
     print(f"Trying to validate input '42': {numeric.validate(42)}")
     print(f"Trying to validate input 'Hello': {numeric.validate('Hello')}")
-    print(f"Test invalid ingestion of string 'foo' without prior validation: ")
+    print("Test invalid ingestion of string 'foo' without prior validation: ")
     try:
         numeric.ingest("foo")
     except ValueError as error:
@@ -149,7 +146,7 @@ def main() -> None:
     print("Extracting 3 values...")
     for i in range(3):
         print(f"Numeric value {i}: {numeric.output()[1]}")
-    
+
     print("\nTesting Text Processor...")
     text = TextProcessor()
     print(f"Trying to validate input '42': {text.validate(42)}")
@@ -160,12 +157,12 @@ def main() -> None:
     print("Extracting 1 values...")
     for i in range(1):
         print(f"Text value {i}: {text.output()[1]}")
-    
+
     print("\nTesting Log Processor...")
     log = LogProcessor()
     print(f"Trying to validate input 'Hello': {log.validate('Hello')}")
     data_3: list[dict[str, str]] = [
-        {'log_level': 'NOTICE', 'log_message': 'Connection to server'}, 
+        {'log_level': 'NOTICE', 'log_message': 'Connection to server'},
         {'log_level': 'ERROR', 'log_message': 'Unauthorized access!!'}
     ]
     log.validate(data_3)

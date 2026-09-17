@@ -1,0 +1,7 @@
+from alchemy.elements import create_air
+
+print(
+    "=== Alembic 3 ===\n"
+    "Accessing alchemy/elements.py using 'from ... import ...' structure"
+    f"\nTesting create_air: {create_air()}\n"
+    )

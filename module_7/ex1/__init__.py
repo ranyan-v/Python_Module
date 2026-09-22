@@ -6,7 +6,5 @@ from .factory import (
 
 __all__ = [
     "HealingCreatureFactory",
-    "TransformCreatureFactory",
-    "HealCapability",
-    "TransformCapability"
+    "TransformCreatureFactory"
 ]

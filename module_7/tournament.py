@@ -1,50 +1,81 @@
-from ex0.factory import CreatureFactory, FlameFactory, AquaFactory
-
-
-def test_factory(factory: CreatureFactory) -> None:
-    base = factory.create_base()
-    print(base.describe())
-    print(base.attack())
-
-    evolved = factory.create_evolved()
-    print(evolved.describe())
-    print(evolved.attack())
+from ex2.creature import Creature
+from ex2.factory import (
+    CreatureFactory, FlameFactory, AquaFactory,
+    HealingCreatureFactory, TransformCreatureFactory
+)
+from ex2.strategy import (
+    BattleStrategy, NormalStrategy,
+    AggressiveStrategy, DefensiveStrategy
+)
+from ex2.errors import BattleError
 
 
 def test_battle(
-        factory1: CreatureFactory,
-        factory2: CreatureFactory
+        creature_1: Creature,
+        strategy_1: BattleStrategy,
+        creature_2: Creature,
+        strategy_2: BattleStrategy
 ) -> None:
-    creature_1 = factory1.create_base()
-    creature_2 = factory2.create_base()
+    print("* Battle *")
     print(creature_1.describe())
     print(" vs.")
     print(creature_2.describe())
     print(" now fight!")
-    print(creature_1.attack())
-    print(creature_2.attack())
-    print(creature_2.heal(creature_2.name))
+    print(strategy_1.act(creature_1))
+    print(strategy_2.act(creature_2))
+
+
+def tournament(
+    participants: list[tuple[CreatureFactory, BattleStrategy]]
+) -> None:
+    print("*** Tournament ***")
+    print(f"{len(participants)} opponents involved\n")
+    player = []
+    for factory, strategy in participants:
+        player.append((factory.create_base(), strategy))
+
+    i = 0
+    while i < len(player):
+        j = i + 1
+        while j < len(player):
+            creature_1, strategy_1 = player[i]
+            creature_2, strategy_2 = player[j]
+            try:
+                test_battle(
+                    creature_1, strategy_1,
+                    creature_2, strategy_2
+                )
+                if not i == len(player) - 2:
+                    print()
+            except BattleError as error:
+                print(f"Battle error, aborting tournament: {error}\n")
+                return
+            j += 1
+        i += 1
 
 
 def main() -> None:
     print("Tournament 0 (basic)")
-    flame = FlameFactory()
-    
-    print("*** Tournament ***")
-    print("2 opponents involved\n")
-    print("* Battle *")
-    factory1 = FlameFactory()
-    factory2 = AquaFactory()
-    test_battle(factory1, factory2)
-    print()
+    print("[ (Flameling+Normal), (Healing+Defensive) ]")
+    tournament([
+        (FlameFactory(), NormalStrategy()),
+        (HealingCreatureFactory(), DefensiveStrategy())
+    ])
 
-    print("Testing factory")
-    aqua = AquaFactory()
-    test_factory(aqua)
-    print()
+    print("Tournament 1 (error)")
+    print("[ (Flameling+Aggressive), (Healing+Defensive) ]")
+    tournament([
+        (FlameFactory(), AggressiveStrategy()),
+        (HealingCreatureFactory(), DefensiveStrategy())
+    ])
 
-    print("Testing battle")
-    
+    print("Tournament 2 (multiple)")
+    print("[ (Aquabub+Normal), (Healing+Defensive), (Transform+Aggressive) ]")
+    tournament([
+        (AquaFactory(), NormalStrategy()),
+        (HealingCreatureFactory(), DefensiveStrategy()),
+        (TransformCreatureFactory(), AggressiveStrategy())
+    ])
 
 
 if __name__ == "__main__":

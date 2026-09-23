@@ -15,6 +15,34 @@ class Creature(ABC):
         pass
 
 
+# 🔥 Flameling: The Fire-type
+class Flameling(Creature):
+
+    def attack(self) -> str:
+        return (f"{self.name} uses Ember!")
+
+
+# 🔥+ Pyrodon: The evolved Fire-type
+class Pyrodon(Creature):
+
+    def attack(self) -> str:
+        return (f"{self.name} uses Flamethrower!")
+
+
+# 💧 Aquabub: The Water-type
+class Aquabub(Creature):
+
+    def attack(self) -> str:
+        return (f"{self.name} uses Water Gun!")
+
+
+# 💧+ Torragon: The evolved Water-type
+class Torragon(Creature):
+
+    def attack(self) -> str:
+        return (f"{self.name} uses Hydro Pump!")
+
+
 # 🌱 Sproutling: The seedling stage
 class Sproutling(Creature, HealCapability):
     def attack(self) -> str:

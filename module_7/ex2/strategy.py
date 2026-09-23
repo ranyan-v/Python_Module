@@ -3,6 +3,7 @@ from .creature import Creature
 from .capability import HealCapability, TransformCapability
 from .errors import BattleError
 
+
 class BattleStrategy(ABC):
 
     @abstractmethod
@@ -19,12 +20,7 @@ class NormalStrategy(BattleStrategy):
         return True
 
     def act(self, creature: Creature) -> str:
-        if self.is_valid(creature):
-            return creature.attack()
-        else:
-            raise BattleError(
-                f"Invalid Creature '{creature}' for this normal strategy"
-            )
+        return creature.attack()
 
 
 class AggressiveStrategy(BattleStrategy):
@@ -43,13 +39,14 @@ class AggressiveStrategy(BattleStrategy):
             return result
         else:
             raise BattleError(
-                f"Invalid Creature '{creature}' for this aggressive strategy"
+                f"Invalid Creature '{creature.name}' "
+                "for this aggressive strategy"
             )
 
 
 class DefensiveStrategy(BattleStrategy):
     def is_valid(self, creature: Creature) -> bool:
-            return (isinstance(creature, HealCapability))
+        return (isinstance(creature, HealCapability))
 
     def act(self, creature: Creature) -> str:
         if isinstance(creature, HealCapability):
@@ -61,5 +58,5 @@ class DefensiveStrategy(BattleStrategy):
             return result
         else:
             raise BattleError(
-                f"Invalid Creature '{creature}' for this healing strategy"
+                f"Invalid Creature '{creature.name}' for this healing strategy"
             )

@@ -45,7 +45,6 @@ def main() -> None:
     print("Testing Creature with transform capability")
     transform = TransformCreatureFactory()
     test_transform(transform)
-    print()
 
 
 if __name__ == "__main__":

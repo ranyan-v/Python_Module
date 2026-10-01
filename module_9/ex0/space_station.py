@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 from typing import Optional
 from datetime import datetime
 
@@ -15,7 +15,61 @@ class SpaceStation(BaseModel):
 
 
 def main()-> None:
-    print()
+    print("Space Station Data Validation")
+    print("========================================")
+
+    #  valid space station
+    try:
+        station = SpaceStation(
+            station_id = "ISS001",
+            name = "International Space Station",
+            crew_size = 6,
+            power_level = 85.5,
+            oxygen_level = 92.3,
+            last_maintenance = datetime.now(),
+            is_operational = True
+        )
+        print(
+            "Valid station created:\n"
+            f"ID: {station.station_id}\n"
+            f"Name: {station.name}\n"
+            f"Crew: {station.crew_size} people\n"
+            f"Power: {station.power_level}%\n"
+            f"Oxygen: {station.oxygen_level}%\n"
+            f"Status: {'Operational' if station.is_operational else
+                       'Not Operational'}\n"
+        )
+        if station.notes:
+            print(f"Note: {station.notes}")
+    except ValidationError as error:
+        print(error)
+
+    print("========================================")
+    # invalid space station
+    try:
+        station = SpaceStation(
+            station_id = "ISS001",
+            name = "International Space Station",
+            crew_size = 100,
+            power_level = 85.5,
+            oxygen_level = 92.3,
+            last_maintenance = datetime.now(),
+            is_operational = True
+        )
+        print(
+            "Valid station created:\n"
+            f"ID: {station.station_id}\n"
+            f"Name: {station.name}\n"
+            f"Crew: {station.crew_size} people\n"
+            f"Power: {station.power_level}%\n"
+            f"Oxygen: {station.oxygen_level}%\n"
+            f"Status: {'Operational' if station.is_operational else
+                       'Not Operational'}\n"
+        )
+        if station.notes:
+            print(f"Note: {station.notes}")
+    except ValidationError as error:
+        print(error)
 
 
 if __name__ == "__main__":

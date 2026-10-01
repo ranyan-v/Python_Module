@@ -66,7 +66,7 @@ def main() -> None:
     else:
         print("[INFO] No production overrides detected")
 
-    print("The Oracle sees all configurations.")
+    print("\nThe Oracle sees all configurations.")
 
 
 if __name__ == "__main__":

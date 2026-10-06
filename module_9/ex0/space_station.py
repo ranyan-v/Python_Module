@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from pydantic import BaseModel, Field, ValidationError
 from typing import Optional
 from datetime import datetime
@@ -66,10 +68,10 @@ def main() -> None:
         if station.notes:
             print(f"Note: {station.notes}")
     except ValidationError as error:
-        print(
-            "Expected validation error:\n"
-            f"{error.errors()[0]['msg']}"
-        )
+        print("Expected validation error:")
+
+        for e in error.errors():
+            print(f"{e['msg']}")
 
 
 if __name__ == "__main__":

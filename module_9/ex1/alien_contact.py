@@ -25,7 +25,7 @@ class AlienContact(BaseModel):
     is_verified: bool = Field(default=False)
 
     @model_validator(mode='after')
-    def business_rule(self) -> "AlienContact":
+    def custom_validation_rules(self) -> "AlienContact":
         if not self.contact_id.startswith("AC"):
             raise ValueError(
                 "Contact ID must start with 'AC' (Alien Contact)"

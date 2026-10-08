@@ -10,7 +10,7 @@ def in_virtual_env() -> bool:
 def main() -> None:
     if in_virtual_env():
         env_name = path.basename(prefix)
-        installation_path = getsitepackages()[0]  #list of path
+        installation_path = getsitepackages()[0]  # list of path
         print(
             "\nMATRIX STATUS: Welcome to the construct\n"
             f"\nCurrent Python: {executable}\n"
@@ -32,7 +32,7 @@ def main() -> None:
             "\nTo enter the construct, run:\n"
             "python3 -m venv matrix_env\n"
             "source matrix_env/bin/activate # On Unix\n"
-            "matrix_env\Scripts\activate # On Windows\n"
+            "matrix_env\\Scripts\\activate # On Windows\n"
             "\nThen run this program again."
         )
 

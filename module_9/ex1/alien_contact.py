@@ -70,7 +70,7 @@ def main() -> None:
     print(
         "Valid contact report:\n"
         f"ID: {contact.contact_id}\n"
-        f"Type: {contact.contact_type}\n"
+        f"Type: {contact.contact_type.value}\n"
         f"Location: {contact.location}\n"
         f"Signal: {contact.signal_strength}/10\n"
         f"Duration: {contact.duration_minutes} minutes\n"
@@ -93,7 +93,7 @@ def main() -> None:
         )
     except ValidationError as error:
         print("Expected validation error:")
-        
+
         for e in error.errors():
             print(f"{e['ctx']['error']}")  # get raised error_msg
 
